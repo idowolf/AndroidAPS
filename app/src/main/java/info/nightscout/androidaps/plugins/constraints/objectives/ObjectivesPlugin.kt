@@ -46,16 +46,6 @@ class ObjectivesPlugin @Inject constructor(
 
     companion object {
 
-        const val FIRST_OBJECTIVE = 0
-        @Suppress("unused") const val USAGE_OBJECTIVE = 1
-        @Suppress("unused") const val EXAM_OBJECTIVE = 2
-        @Suppress("unused") const val OPENLOOP_OBJECTIVE = 3
-        @Suppress("unused") const val MAXBASAL_OBJECTIVE = 4
-        const val MAXIOB_ZERO_CL_OBJECTIVE = 5
-        @Suppress("unused") const val MAXIOB_OBJECTIVE = 6
-        const val AUTOSENS_OBJECTIVE = 7
-        const val SMB_OBJECTIVE = 8
-        const val AUTO_OBJECTIVE = 9
     }
 
     public override fun onStart() {
@@ -102,7 +92,7 @@ class ObjectivesPlugin @Inject constructor(
         val requestCode = sp.getString(R.string.key_objectives_request_code, "")
         var url = sp.getString(R.string.key_nsclientinternal_url, "").lowercase(Locale.getDefault())
         if (!url.endsWith("/")) url = "$url/"
-        @Suppress("DEPRECATION", "UnstableApiUsage") val hashNS = Hashing.sha1().hashString(url + BuildConfig.APPLICATION_ID + "/" + requestCode, Charsets.UTF_8).toString()
+        @Suppress("DEPRECATION", "UnstableApiUsage") val hashNS = Hashing.sha1().hashString(url +   BuildConfig.APPLICATION_ID + "/" + requestCode, Charsets.UTF_8).toString()
         if (request.equals(hashNS.substring(0, 10), ignoreCase = true)) {
             sp.putLong("Objectives_" + "openloop" + "_started", dateUtil.now())
             sp.putLong("Objectives_" + "openloop" + "_accomplished", dateUtil.now())
