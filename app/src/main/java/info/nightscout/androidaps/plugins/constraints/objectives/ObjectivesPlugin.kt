@@ -69,8 +69,8 @@ class ObjectivesPlugin @Inject constructor(
 
     private fun setupObjectives() {
         objectives.clear()
-        objectives.add(Objective0(injector))
         objectives.add(Objective3(injector))
+        objectives.add(Objective0(injector))
         objectives.add(Objective1(injector))
         objectives.add(Objective2(injector))
         objectives.add(Objective4(injector))
@@ -104,6 +104,12 @@ class ObjectivesPlugin @Inject constructor(
         var url = sp.getString(R.string.key_nsclientinternal_url, "").lowercase(Locale.getDefault())
         if (!url.endsWith("/")) url = "$url/"
         @Suppress("DEPRECATION", "UnstableApiUsage") val hashNS = Hashing.sha1().hashString(url + BuildConfig.APPLICATION_ID + "/" + requestCode, Charsets.UTF_8).toString()
+        sp.putLong("Objectives_" + "config" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "config" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "usage" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "usage" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "exam" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "exam" + "_accomplished", dateUtil.now())
         sp.putLong("Objectives_" + "openloop" + "_started", dateUtil.now())
         sp.putLong("Objectives_" + "openloop" + "_accomplished", dateUtil.now())
         sp.putLong("Objectives_" + "maxbasal" + "_started", dateUtil.now())
