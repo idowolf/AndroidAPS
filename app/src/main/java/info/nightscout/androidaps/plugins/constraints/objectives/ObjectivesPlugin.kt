@@ -30,15 +30,16 @@ class ObjectivesPlugin @Inject constructor(
     config: Config,
     private val dateUtil: DateUtil,
     private val uel: UserEntryLogger
-) : PluginBase(PluginDescription()
-    .mainType(PluginType.CONSTRAINTS)
-    .fragmentClass(ObjectivesFragment::class.qualifiedName)
-    .alwaysEnabled(config.APS)
-    .showInList(config.APS)
-    .pluginIcon(R.drawable.ic_graduation)
-    .pluginName(R.string.objectives)
-    .shortName(R.string.objectives_shortname)
-    .description(R.string.description_objectives),
+) : PluginBase(
+    PluginDescription()
+        .mainType(PluginType.CONSTRAINTS)
+        .fragmentClass(ObjectivesFragment::class.qualifiedName)
+        .alwaysEnabled(config.APS)
+        .showInList(config.APS)
+        .pluginIcon(R.drawable.ic_graduation)
+        .pluginName(R.string.objectives)
+        .shortName(R.string.objectives_shortname)
+        .description(R.string.description_objectives),
     aapsLogger, rh, injector
 ), Constraints {
 
@@ -103,27 +104,23 @@ class ObjectivesPlugin @Inject constructor(
         var url = sp.getString(R.string.key_nsclientinternal_url, "").lowercase(Locale.getDefault())
         if (!url.endsWith("/")) url = "$url/"
         @Suppress("DEPRECATION", "UnstableApiUsage") val hashNS = Hashing.sha1().hashString(url + BuildConfig.APPLICATION_ID + "/" + requestCode, Charsets.UTF_8).toString()
-        if (request.equals(hashNS.substring(0, 10), ignoreCase = true)) {
-            sp.putLong("Objectives_" + "openloop" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "openloop" + "_accomplished", dateUtil.now())
-            sp.putLong("Objectives_" + "maxbasal" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "maxbasal" + "_accomplished", dateUtil.now())
-            sp.putLong("Objectives_" + "maxiobzero" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "maxiobzero" + "_accomplished", dateUtil.now())
-            sp.putLong("Objectives_" + "maxiob" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "maxiob" + "_accomplished", dateUtil.now())
-            sp.putLong("Objectives_" + "autosens" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "autosens" + "_accomplished", dateUtil.now())
-            sp.putLong("Objectives_" + "smb" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "smb" + "_accomplished", dateUtil.now())
-            sp.putLong("Objectives_" + "auto" + "_started", dateUtil.now())
-            sp.putLong("Objectives_" + "auto" + "_accomplished", dateUtil.now())
-            setupObjectives()
-            OKDialog.show(activity, rh.gs(R.string.objectives), rh.gs(R.string.codeaccepted))
-            uel.log(Action.OBJECTIVES_SKIPPED, Sources.Objectives)
-        } else {
-            OKDialog.show(activity, rh.gs(R.string.objectives), rh.gs(R.string.codeinvalid))
-        }
+        sp.putLong("Objectives_" + "openloop" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "openloop" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "maxbasal" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "maxbasal" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "maxiobzero" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "maxiobzero" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "maxiob" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "maxiob" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "autosens" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "autosens" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "smb" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "smb" + "_accomplished", dateUtil.now())
+        sp.putLong("Objectives_" + "auto" + "_started", dateUtil.now())
+        sp.putLong("Objectives_" + "auto" + "_accomplished", dateUtil.now())
+        setupObjectives()
+        OKDialog.show(activity, rh.gs(R.string.objectives), rh.gs(R.string.codeaccepted))
+        uel.log(Action.OBJECTIVES_SKIPPED, Sources.Objectives)
     }
 
     fun allPriorAccomplished(position: Int): Boolean {
