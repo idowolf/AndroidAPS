@@ -39,7 +39,7 @@ abstract class Objective(injector: HasAndroidInjector, spName: String, @StringRe
 
     var tasks: MutableList<Task> = ArrayList()
 
-    var hasSpecialInput = false
+    var hasSpecialInput = true
 
     val isCompleted: Boolean
         get() {
