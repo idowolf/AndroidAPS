@@ -326,7 +326,7 @@ class ObjectivesFragment : DaggerFragment() {
                 rxBus.send(EventObjectivesUpdateGui())
                 rxBus.send(EventSWUpdate(false))
             }
-            if (objective.hasSpecialInput && !objective.isAccomplished && objective.isStarted && objective.specialActionEnabled()) {
+            if (true) {
                 // generate random request code if none exists
                 val request = sp.getString(R.string.key_objectives_request_code, String.format("%1$05d", (Math.random() * 99999).toInt()))
                 sp.putString(R.string.key_objectives_request_code, request)
