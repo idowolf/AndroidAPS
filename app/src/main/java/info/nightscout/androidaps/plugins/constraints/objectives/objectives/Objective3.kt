@@ -27,7 +27,7 @@ class Objective3 @Inject constructor(injector: HasAndroidInjector) : Objective(i
     }
 
     override fun specialActionEnabled(): Boolean =
-        nsClientPlugin.nsClientService?.isConnected == true && nsClientPlugin.nsClientService?.hasWriteAuth == true
+        true
 
     override fun specialAction(activity: FragmentActivity, input: String) {
         objectivesPlugin.completeObjectives(activity, input)
