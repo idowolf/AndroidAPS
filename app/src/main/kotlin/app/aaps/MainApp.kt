@@ -59,6 +59,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import rxdogtag2.RxDogTag
 import java.io.IOException
@@ -97,6 +98,10 @@ class MainApp : DaggerApplication() {
         super.onCreate()
         aapsLogger.debug("onCreate")
         ProcessLifecycleOwner.get().lifecycle.addObserver(processLifecycleListener.get())
+        scope.launch(Dispatchers.IO) {
+            delay(1500)
+            versionCheckersUtils.triggerCheckVersion()
+        }
         scope.launch {
             RxDogTag.install()
             setRxErrorHandler()

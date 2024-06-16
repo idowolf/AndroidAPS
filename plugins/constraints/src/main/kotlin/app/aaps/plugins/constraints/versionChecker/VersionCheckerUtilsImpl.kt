@@ -1,6 +1,7 @@
 package app.aaps.plugins.constraints.versionChecker
 
 import android.os.Build
+import android.util.Log
 import app.aaps.core.data.time.T
 import app.aaps.core.interfaces.configuration.Config
 import app.aaps.core.interfaces.logging.AAPSLogger
@@ -48,6 +49,7 @@ class VersionCheckerUtilsImpl @Inject constructor(
 
     private fun checkVersion() =
         if (isConnected()) {
+            Log.d("MYTAG", "Connected")
             Thread {
                 try {
                     val definition: String = URL("https://raw.githubusercontent.com/nightscout/AndroidAPS/versions/definition.json").readText()
@@ -68,8 +70,10 @@ class VersionCheckerUtilsImpl @Inject constructor(
                     aapsLogger.error(LTag.CORE, "Github master version check error: $e")
                 }
             }.start()
-        } else
+        } else {
+            Log.d("MYTAG", "Not connected")
             aapsLogger.debug(LTag.CORE, "Github master version not checked. No connectivity")
+        }
 
     @Suppress("SameParameterValue")
     override fun compareWithCurrentVersion(newVersion: String?, currentVersion: String) {
