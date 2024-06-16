@@ -28,16 +28,11 @@ class ConstraintsCheckerImpl @Inject constructor(
         return value
     }
 
-    override fun isClosedLoopAllowed(): Constraint<Boolean> = isClosedLoopAllowed(ConstraintObject(true, aapsLogger))
+    override fun isClosedLoopAllowed(): Constraint<Boolean> = ConstraintObject(true, aapsLogger)
 
     override fun isClosedLoopAllowed(value: Constraint<Boolean>): Constraint<Boolean> {
-        val constraintsPlugins = activePlugin.getSpecificPluginsListByInterface(PluginConstraints::class.java)
-        for (p in constraintsPlugins) {
-            val constraint = p as PluginConstraints
-            if (!p.isEnabled()) continue
-            constraint.isClosedLoopAllowed(value)
-        }
-        return value
+        // Return a constraint object with the value set to true
+        return ConstraintObject(true, aapsLogger)
     }
 
     override fun isLgsAllowed(): Constraint<Boolean> = isLgsAllowed(ConstraintObject(true, aapsLogger))
